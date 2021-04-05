@@ -106,7 +106,9 @@ a{
   margin-left: 125px;
 }
 
-
+.collection-item{
+  width: 100%;
+}
 .read-more-link{
   letter-spacing: 1px;
   cursor: pointer;
@@ -114,4 +116,8 @@ a{
 .extra-content{
   color: cornflowerblue;
   font-weight: 500;
+}
+
+.parag1{
+  color: black !important;
 }

@@ -112,6 +112,20 @@ router.put('/updatepic',requireLogin,(req,res)=>{
     // this req.body we are retrieving the pic from the client side...
 })
 
-
+// used for the search user functionality...
+// iska method post hai kyunki front end se data aa rha hai...aur uss data ko jo user ne dala hai ham query ke form receive kr rahe hain..
+// yahan pr query se fetch kr rahe hain tu vahan pr bhi key ka name query rakha hai..
+router.post("/search-users",(req,res)=>{
+    let userPattern=new RegExp("^"+req.body.query) // the query is coming from the front end and it will send the whole record
+    User.find({email:{$regex:userPattern}}) // finding the email in the user model
+    .select("_id email") //backend se sirf id aur email bhej rahe hain rather then sending the complete record
+    .then(user=>{
+       res.json({user:user}) // ye backend se front end pr send kr rahe hain..
+       // ye eik js object hai what we are sending fron the back end..
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
 
 module.exports=router // now we need to require that in our app.js

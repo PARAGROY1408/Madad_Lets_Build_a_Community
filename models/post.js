@@ -33,10 +33,11 @@ const postschema=new mongoose.Schema({
         type:ObjectId,
         ref:"User" // this model ko connect kr diya hai with the User model in user.js
     }
-})
+},{timestamps:true})
 mongoose.model("Post",postschema);
 // Post is the name of the model...defined in post.js and postschema is the name of the schema...
 //whenver we are using this model in any of our file we will including by this name "Post"
 // basically the structure of our post how it will be..
 // now we need to register this model in app.js
 // likes is basicaly an array taht conatin the ids of all the users who liked the post..
+// timestamps:true this is done so that the newly added post should come on the top...
