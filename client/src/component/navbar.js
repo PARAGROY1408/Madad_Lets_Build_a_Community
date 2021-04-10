@@ -13,7 +13,7 @@ const Navbar = () => {  // this is a functional component..
   const { state, dispatch } = useContext(UserContext)
   const history = useHistory()
   const renderList = () => {
-    if (state) {
+    if (state) { // iska matlab user login kr chuka hai tu ye component display krwa denge
       return [
         <li key="1"><i data-target="modal1" className="large material-icons modal-trigger" style={{ color: "black" }}>search</i></li>,
         <li key="2"><Link to="/profile">Profile</Link></li>,
@@ -31,7 +31,7 @@ const Navbar = () => {  // this is a functional component..
         </Link></li>
       ]
     }
-    else {
+    else { // abhi user ne login nhi kiya  hai
       return [
         <li key="6"><Link to="/signin" className="self2">Signin</Link></li>,
         <li key="7"><Link to="/signup" className="self2">Signup</Link></li>,

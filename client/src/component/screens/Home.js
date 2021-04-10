@@ -6,7 +6,10 @@ import { Link } from 'react-router-dom'
 
 import { UserContext } from '../../App'
 const Home = () => {
-    const [data, setData] = useState([]); // data is an array of js object......
+    const [data, setData] = useState([]); /* data is an array of js object......
+    useState hook eik array ko return krta hai...usse yahan pr destructure kiya hai..
+    usme 2 item hote hain...pehla curent value dusra updated value jo ki eik fucntion hai..
+    [] is the initial value jo yahan pr pass ki hai..*/
     const { state, dispatch } = useContext(UserContext) // this state is an js object taht conatin the info regarding the current user taht is logged in..
     // state._id will give us the id of the person who is currently logged in...
 

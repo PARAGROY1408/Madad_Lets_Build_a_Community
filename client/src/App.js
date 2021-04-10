@@ -75,7 +75,7 @@ function App() {
     <UserContext.Provider value={{state,dispatch}}>
     <BrowserRouter>
       <Navbar></Navbar>
-       <Routing></Routing>
+      <Routing></Routing>
     </BrowserRouter>
     </UserContext.Provider>
   );

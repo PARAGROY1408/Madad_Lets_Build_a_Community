@@ -26,6 +26,8 @@ module.exports=(req,res,next)=>{  // from here we are gonna to export this middl
            req.user=userdata
            next() // this is used so that flow can go further to the next middleware or line of code
            // we have used it here bcz we should call it when we are done with the assignment..
+           // as we know that nodejs is single thread non blocking input output model..that is it 
+           // continioulsy running by wriing this the application will go to the next phase..
        })
        
 

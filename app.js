@@ -26,6 +26,7 @@ app.use(require('./routes/post')) // this will contain the routes for the post..
 app.use(require('./routes/user')) // this will also contain routes
 
 
+// this part is only used for the deploying to heroku we are moving to the production side..
 if(process.env.NODE_ENV=="production")
 {
     // if our project is deployed then we have to do something....
