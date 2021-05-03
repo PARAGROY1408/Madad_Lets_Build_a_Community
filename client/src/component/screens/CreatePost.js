@@ -14,15 +14,13 @@ const CreatePost = () => {
     useEffect(()=>{
         if(url)
         {
-        // uptill now we have posted the image of the user on the cloudinnary....
-        // now we have to  make a netwrok request to the server and we will post the url of the image
-        // image is on cloudinary(name of the company) amd on database we have url of that image
+        
         fetch("/createpost",{
             method:"post",
             headers:{
                 "Content-Type":"application/json",
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
-                // bcz firstly we have saved the token in our local storage and then we are getting it back..
+               
             },
             body:JSON.stringify({
                 title:title,
@@ -30,8 +28,7 @@ const CreatePost = () => {
                 phone:phone,
                 address:address,
                 pic:url,
-                // yahan pr pic isiliye use kiya hai bcz at the backend we are fetching it by the pic thats why..
-                // at the time of destructuring we are taking it as the pic...
+                
             })
         }).then(res=>res.json)
         .then(data=>{
@@ -43,14 +40,14 @@ const CreatePost = () => {
             }
             else{
                 M.toast({html: "Created Post Successfully",classes:"#388e3c green darken-2"})
-                history.push('/') // user will be send to the home page after he successfully sign up
+                history.push('/') 
             }
         })
         }
-    },[url])// this useEffect function will be triggered when their is a change in the url.....
+    },[url]
 
     
-    // this function will be called when the user will click on the submit post..
+    
     const Postdetails=()=>{
         /* we have to post the image to the cloud*/
         const data=new FormData()
@@ -58,18 +55,14 @@ const CreatePost = () => {
         data.append("upload_preset","insta-clone")
         data.append("cloud_name","paragpramodroy")
 
-        // as this fetch is of post so we have to pass the method inside it...
+        
         fetch("	https://api.cloudinary.com/v1_1/paragpramodroy/image/upload",{
             method:"post",
             body:data
         })
-        .then(res=>res.json()) // we will get the response then convert it to the json format..
+        .then(res=>res.json()) 
         .then(data=>{
-            /*
             console.log(data)
-            isse console karke dekha data eik js ka object hai..it have different key value pair..
-            usme se eik key hai url ki we want so we will use it like data.url
-            */
            setUrl(data.url)
         })
         .catch(err=>{
