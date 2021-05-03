@@ -21,16 +21,6 @@ const Routing = () => {
   useEffect(()=>{
      const user=JSON.parse(localStorage.getItem("user"))
      console.log(typeof(user),user)
-      /** after the successfull signin of the user we have stored the details of the user in our localstorage
-      * by the name "user" but the isssue is in the local storage this detail is stored in the form of
-      * string, so due to this here we have to pass again to the object..
-      * basically now we are fetching the details of the user what we have saved in the local storage
-      *  */ 
-
-    // this was our main objective of using context user will not be able to create the post untill
-    // he has signedin...if user has not signin then take it to the signin page and if it has signin
-    // then take it to the home page...
-    // application ke load hone ke baad sabse pehle this code will work..
      if(user)
      {
        dispatch({type:"USER",payload:user})
@@ -39,7 +29,7 @@ const Routing = () => {
      else{
        history.push('/signin')
      }
-  },[]) //[] iska use krna important hai nhi tu loop mei stuck ho jaega..
+  },[]) 
   return (
     <Switch>
       <Route exact path="/">
@@ -82,12 +72,3 @@ function App() {
 }
 
 export default App;
-// <Navbar></Navbar> we can also write it as <Navbar/>
-/* <Route exact path="/">  we have used exact word here bcz if we dont use this then as / this
-is present in every route so in all the page like signin , signup page we have to see the home
-page as well
-*/
-/** <Route exact path="/profile">  here we are using exact keyword bcz the same path is available in
- * UserProfile also...so if we dont use this keyword both the page will get loaded..
- * 
- */
