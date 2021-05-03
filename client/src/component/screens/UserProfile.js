@@ -7,11 +7,10 @@ const Profile = () => {
     
 
     const { state, dispatch } = useContext(UserContext)
-    const { userid } = useParams() // destructure kiya hai...
+    const { userid } = useParams() 
     //console.log(userid)
     
-    // state will take some time to change...so this may take a while thats why we have used the conditon..
-    // so for our sometime we will be seeing the follow button at the profile of a user which we have already followed
+   
     const[showfollow,setShowFollow]=useState(state?!state.following.includes(userid):true)
     useEffect(() => {
         fetch(`/user/${userid}`, {
@@ -24,7 +23,7 @@ const Profile = () => {
                 //console.log(result) 
                 setProfile(result)
             })
-    }, []) // want the useEffect to get fired only once..*/
+    }, []) 
 
      const followUser=()=>{
          fetch('/follow',{
@@ -40,10 +39,10 @@ const Profile = () => {
          .then(res=>res.json())
          .then(data=>{
              console.log(data)
-             // when we are following a user then we need to update the state..
+             
              dispatch({type:"UPDATE",payload:{following:data.following,followers:data.followers}})
              localStorage.setItem("user",JSON.stringify(data))
-             // we need to update the localStorage  and pass the data in it in the form of string..
+            
              setProfile(prevState=>{
                  return{
                      ...prevState,
@@ -53,7 +52,7 @@ const Profile = () => {
                     }
                  }
              })
-            setShowFollow(false) // eik baar follow kr diya tu ab now only one option that is to unfollow
+            setShowFollow(false) 
          })
      }
      const unfollowUser=()=>{
@@ -70,10 +69,10 @@ const Profile = () => {
         .then(res=>res.json())
         .then(data=>{
             console.log(data)
-            // when we are following a user then we need to update the state..
+            
             dispatch({type:"UPDATE",payload:{following:data.following,followers:data.followers}})
             localStorage.setItem("user",JSON.stringify(data))
-            // we need to update the localStorage  and pass the data in it in the form of string..
+            
             setProfile(prevState=>{
                 const newFollower=prevState.user.followers.filter(item=>item!=data._id)
                 return{
@@ -112,8 +111,7 @@ const Profile = () => {
                                     <h6>{userProfile.user.following.length} Following</h6>
                                 </div>
                                 {
-                                    // this logic is written to hide the follow button from the user if the user alreayd follows
-                                    // taht is user cant follow a particular user more than once...
+                                    
                                     showfollow?
                                     <button style={{margin:"10px"}}className="btn waves-effect waves-light #64b5f6 blue darken-1" onClick={()=>followUser()}>Follow
                 </button>
@@ -127,8 +125,7 @@ const Profile = () => {
                         </div>
                         <div className="gallery">
                             {
-                                // we need to iterate and we will do this by map...
-                                // now we will itearate and we only wants to show the photo..
+                                
                                 userProfile.posts.map(item => {
                                     return (
                                         <img key={item._id} className="item" src={item.photo} alt={item.title} />
@@ -144,5 +141,3 @@ const Profile = () => {
     )
 }
 export default Profile
-//<h4> {state?state.name:"loading"}</h4> with the help of this we are able to see the name of the current login user at the profile page..
-// state.name this is related to context.. 
