@@ -1,8 +1,8 @@
-import { React, useState,useEffect } from 'react' // useState is basically we are using hooks as we have defined functional component in it..
-import { Link, useHistory } from 'react-router-dom' // we are importing the link of the signin page so we can navigate
+import { React, useState,useEffect } from 'react' 
+import { Link, useHistory } from 'react-router-dom' 
 import M from 'materialize-css'
 
-// this Signup what we have created is basically our functional component..
+
 const Signup = () => {
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -21,24 +21,21 @@ const Signup = () => {
         }
     },[url])
     const uploadPic=()=>{
-         /* we have to post the image to the cloud*/
+         
          const data=new FormData()
          data.append("file",image)
          data.append("upload_preset","insta-clone")
          data.append("cloud_name","paragpramodroy")
  
-         // as this fetch is of post so we have to pass the method inside it...
+         
          fetch("	https://api.cloudinary.com/v1_1/paragpramodroy/image/upload",{
              method:"post",
              body:data
          })
-         .then(res=>res.json()) // we will get the response then convert it to the json format..
+         .then(res=>res.json()) 
          .then(data=>{
-             /*
              console.log(data)
-             isse console karke dekha data eik js ka object hai..it have different key value pair..
-             usme se eik key hai url ki we want so we will use it like data.url
-             */
+             
             setUrl(data.url)
          })
          .catch(err=>{
@@ -66,9 +63,9 @@ const Signup = () => {
                 pic:url,
             })
         }).then(res => res.json())
-            .then(data => { // this data is coming from the server side...
+            .then(data => { 
                 //console.log(data)
-                // here we will be making use of toast....
+                
                 if (data.error) {
                     M.toast({ html: data.error, classes: "#c62828 red darken-3" })
                 }
@@ -81,7 +78,7 @@ const Signup = () => {
                 console.log(err)
             })
     }
-    const Postdata = () => {  // this is a network request and this function will be triggered when the user will goona to clck on signup button
+    const Postdata = () => {  
         if(image)
         {
             uploadPic()
@@ -138,6 +135,3 @@ const Signup = () => {
     )
 }
 export default Signup
-//  #64b5f6 blue lighten-2 this is the code of the colour copied it form the documentation
-// here useHistory hook is used to take us to the signin page aftr the signup is done succesfuuly
-// useHistory uses push method for taht and we pass '/signin' in the push method to do it
