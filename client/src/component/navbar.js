@@ -74,21 +74,19 @@ const Navbar = () => {
           </ul>
 
         </div>
-        <div id="modal1" className="modal parag1" ref={searchModel} /*style={{color:"black"}}*/>
+        <div id="modal1" className="modal parag1" ref={searchModel} >
           <div className="modal-content">
             <input type="text" placeholder="Search Users" value={search} onChange={(e) => {
-              fetchUsers(e.target.value) // jaise he user ne kuch search ke liye dala ye fn call hoga
+              fetchUsers(e.target.value) 
             }} />
             <ul className="collection">
               {
-                // ab userDetails jo eik array hai uss pr map function ka use karnge..
+               
                 userDetails.map(item=>{
                 return <Link to={item._id!==state._id?"/profile/"+item._id:"/profile"} onClick={()=>{
-                  //when we click on the email of the user we will be redirected to the profile page of taht user..
-                  // now we need to close this modal....
-                  // first we will get the instance of the modal and then we will close it..
+                  
                   M.Modal.getInstance(searchModel.current).close()
-                  // now we agin need to clear our search...
+                  
                   setSearch('')
                 }}><li className="collection-item">{item.email}</li></Link>
                 })
