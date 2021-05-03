@@ -1,16 +1,16 @@
-import { React, useState, useContext } from 'react' // we have to use the useState hook here...
-import { Link, useHistory } from 'react-router-dom' // useHistory is needed to redirect the user to the home page after the successfull sign in..
+import { React, useState, useContext } from 'react'
+import { Link, useHistory } from 'react-router-dom' 
 import M from 'materialize-css'
 import { UserContext } from '../../App'
 import { Footer } from 'react-bootstrap';
 
-/* UserContext this is defined by us in the App.js*/
+
 
 const Signin = () => {
     const { state, dispatch } = useContext(UserContext)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const history = useHistory() // it is also a hook we will be using its push method ....
+    const history = useHistory() 
 
 
     const Postdata = () => {
@@ -36,11 +36,10 @@ const Signin = () => {
                 }
                 else {
                     localStorage.setItem("jwt", data.token)
-                    localStorage.setItem("user", JSON.stringify(data.user)) // user ki detail aur token both are stored in the local storage.
-                    // but we need to stringfy it bcz in the local storage we can only store the data in the form of string..
+                    localStorage.setItem("user", JSON.stringify(data.user)) 
                     dispatch({ type: "USER", payload: data.user })
                     M.toast({ html: "signedin successfully", classes: "#388e3c green darken-2" })
-                    history.push('/') // user will be send to the home page after he successfully sign up
+                    history.push('/') 
                 }
             })
             .catch(err => {
@@ -52,10 +51,10 @@ const Signin = () => {
             <div className="card auth-card">
                 <h2> मदद </h2>
                 <input type="text" placeholder="email" value={email} onChange={(e) => {
-                    setEmail(e.target.value) // here we are updating the value of the email taht is given by the user...
+                    setEmail(e.target.value) 
                 }} />
                 <input type="password" placeholder="password" value={password} onChange={(e) => {
-                    setPassword(e.target.value) // similarly we have also updated the password...
+                    setPassword(e.target.value) 
                 }} />
                 <button className="btn waves-effect waves-light #64b5f6 blue darken-1" onClick={() => Postdata()}>Login
                 </button>
@@ -70,22 +69,3 @@ const Signin = () => {
     )
 }
 export default Signin
-//  #64b5f6 blue lighten-2 this is the code of the colour copied it form the documentation
-/** the momment the user will gonna to click on the signin button the Postdata function will be triggered and
- * the network request will be made from the client side..
- */
-// <a className="grey-text text-lighten-4 right" href="https://github.com/PARAGROY1408">More Links</a>
-// <a className="grey-text text-lighten-4 right" href="https://www.linkedin.com/in/parag-roy-ab571b171/">More Links</a>
-/**
- * <footer className="page-footer footerself #424242 grey darken-3">
-            <div className="footer ">
-            <div className="container left self3">
-            @Developer:Parag Roy  </div>
-
-            <a className="grey-text text-lighten-4 center" target="_blank" href="https://github.com/PARAGROY1408"> Github     </a>
-            <a className="grey-text text-lighten-4 center" target="_blank" href="https://www.linkedin.com/in/parag-roy-ab571b171/">Linkedin </a>
-
-
-          </div>
-        </footer>
- */
