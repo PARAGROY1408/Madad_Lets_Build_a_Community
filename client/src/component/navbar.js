@@ -3,17 +3,17 @@ import { Link, useHistory } from 'react-router-dom'
 import { UserContext } from '../App'
 import M from 'materialize-css'
 import { Types } from 'mongoose'
-const Navbar = () => {  // this is a functional component..
+const Navbar = () => {  
   const searchModel = useRef(null)
-  const [search, setSearch] = useState("") // isse model ke input tag mei use karenge..
-  const[userDetails,setUserDetails]=useState([]) // jo query ka response aa rha hai backend se vo eik array hai...isilye useState mei array pass kiya hai..
+  const [search, setSearch] = useState("") 
+  const[userDetails,setUserDetails]=useState([]) 
   useEffect(() => {
-    M.Modal.init(searchModel.current) // when we click on the serach model will get opne
-  }, [])//[] this is used bcz we wnt thi useEffect to get fired only once if we dont use this then we will get stuck in the unending loop..
+    M.Modal.init(searchModel.current) 
+  }, [])
   const { state, dispatch } = useContext(UserContext)
   const history = useHistory()
   const renderList = () => {
-    if (state) { // iska matlab user login kr chuka hai tu ye component display krwa denge
+    if (state) { 
       return [
         <li key="1"><i data-target="modal1" className="large material-icons modal-trigger" style={{ color: "black" }}>search</i></li>,
         <li key="2"><Link to="/profile">Profile</Link></li>,
@@ -21,17 +21,16 @@ const Navbar = () => {  // this is a functional component..
         <li key="4"><Link to="/myfollowingpost">My following Posts</Link></li>,
         <li key="5"><Link to="/signin">
           <button className="btn #d32f2f red darken-2" onClick={() => {
-            // logout pr jaise se click karenge..hamara local storage clear krna hai..
-            // that is the userdetail and token what we are using must be removed from our local host
+            
             localStorage.clear()
-            dispatch({ type: "CLEAR" }) // we also need to clear the state..
-            // now we will take the user to the signin page..
+            dispatch({ type: "CLEAR" }) 
+            
             history.push('/signin')
           }}>Logout</button>
         </Link></li>
       ]
     }
-    else { // abhi user ne login nhi kiya  hai
+    else {
       return [
         <li key="6"><Link to="/signin" className="self2">Signin</Link></li>,
         <li key="7"><Link to="/signup" className="self2">Signup</Link></li>,
@@ -40,33 +39,23 @@ const Navbar = () => {  // this is a functional component..
       ]
     }
   }
-  // jitne letter user type karega utne baar ye fn call hoga 
-  // let suppose user ne type kiya seva
-  // 4 baar fn call hoga..
-  // q1 s
-  // q2 se
-  // q3 sev
-  // q4 seva
-  // in 4 ke corresponding hr baar jo matching record hai vo return ho jaega..
-  const fetchUsers=(query)=>{ // this fn will be triggrerd when the change is made in the input box..
-   // the usser will serach for the other user and this function will be called...
-   setSearch(query) // first we will update the state..
-   // now we will make a network request to the route that we have created at the backend..
+  
+  const fetchUsers=(query)=>{
+   
+   setSearch(query) 
    fetch('/search-users',{
      method:"post",
      headers:{
        "Content-Type":"application/json"
      },
      body:JSON.stringify({
-       query:query // yahan pr key query hai uske ander jo query fn mei aya hai usse pass kr diya hai
-       // yahan pr key ka nam query rakha hai...backend pr issi nam se data ko fetch kr rahe hain.
+       query:query 
      })
    })
    .then(res=>res.json())
    .then(result=>{
-      // yahan pr result ke ander pura ka pura record aa rha hai....
-      //console.log(result)
-      setUserDetails(result.user) // console karke deko eik baar
+      
+      setUserDetails(result.user) 
    })
   }
   return (
@@ -120,19 +109,7 @@ const Navbar = () => {  // this is a functional component..
   )
 }
 export default Navbar
-// in the link section we have to spell the to the same way we have did it in the path of the Router in App.js
-/* onClick={()=>setSearch('')} iska use state clear karne ke liye hai jab user search user ka use karega tab
-   vo input box pr jo type kiya hai vo close karne ke baad remove ho gya kyunki iska use kiya tha
-*/
 
 
 
-/**
- * <li><Link to="/signin">Signin</Link></li>
-    <li><Link to="/signup">Signup</Link></li>
-    <li><Link to="/profile">Profile</Link></li>
-    <li><Link to="/createpost">Createpost</Link></li>
-    we have removed all this from the ul bcz all of this will not be shown to the user at a sigle
-    time,some of the content will be shown and rest are hidden depending on the fact where the user
-    has signin or not..
- */
+
